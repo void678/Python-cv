@@ -112,17 +112,6 @@ def main():
     test_pred = model.predict(X_test_rfe)
     test_accuracy = accuracy_score(y_test, test_pred)
     print(f"测试集的准确率：{test_accuracy}")
-    
-    # 错误分析
-    error_indices = np.where(test_pred != y_test)[0]
-    print(f"预测错误的样本数：{len(error_indices)}")
-    print(f"错误样本索引：{error_indices}")
-    
-    # 可视化前5个错误样本
-    for i in range(min(5, len(error_indices))):
-        idx = error_indices[i]
-        print(f"错误样本索引：{idx}")
-        # 可以添加可视化代码
 
 if __name__ == "__main__":
     main() 
