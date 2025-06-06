@@ -206,7 +206,7 @@ def data_generate():
             x_train.append(fvec)
         y_train = y_train + cal_ytrain(t, res.all_area(), img_mask)
 
-    # 提取测试集数据的特征
+    # 提取测试集数据的特征:末尾是学号
     print("Test Set:")
     for i in range(19, 1000, 100):
         print(f"Processing {str(i)}.png ...")
@@ -254,7 +254,7 @@ def test(x_train, y_train, x_test, y_test):
     svm = make_pipeline(StandardScaler(), SVC(gamma='auto', probability=True))
     # 随机森林
     rf = RandomForestClassifier(n_estimators=100, random_state=42)
-    # 集成学习
+    # 集成学习（软投票）
     clf = VotingClassifier(estimators=[('svm', svm), ('rf', rf)], voting='soft')
     clf.fit(x_train, y_train)
     y_train_predict = clf.predict(x_train)
