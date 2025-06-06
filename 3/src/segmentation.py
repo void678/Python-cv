@@ -16,7 +16,7 @@ TEST_GT_DIR = os.path.join(DATASET_DIR, 'test', 'gt')
 TEST_RESULT_DIR = os.path.join(DATASET_DIR, 'test', 'result')
 TEST_MASK_DIR = os.path.join(DATASET_DIR, 'test', 'mask')
 
-# 自动创建所有需要的目录
+
 os.makedirs(TRAIN_IMGS_DIR, exist_ok=True)
 os.makedirs(TRAIN_GT_DIR, exist_ok=True)
 os.makedirs(TRAIN_RESULT_DIR, exist_ok=True)
@@ -26,7 +26,6 @@ os.makedirs(TEST_GT_DIR, exist_ok=True)
 os.makedirs(TEST_RESULT_DIR, exist_ok=True)
 os.makedirs(TEST_MASK_DIR, exist_ok=True)
 
-# 获取项目根目录（D:/HW_2）
 PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 IMGS_DIR = os.path.join(PROJECT_ROOT, 'imgs')
 GT_DIR = os.path.join(PROJECT_ROOT, 'gt')
@@ -93,12 +92,7 @@ class area:
                 count = count + 1
                 if count == self.num_region:
                     break
-        # i,n=0,0
-        # while n != self.num_region:
-        #     if self.parent[i] == i:
-        #         res.append(i)
-        #         n += 1
-        #     i += 1
+       
         return res
 
     def one_area(self, x):
@@ -261,8 +255,8 @@ def cal_IOU(img_gt, res, width, height, areaset):
     '''
     save_img = np.zeros((height, width, 3), np.uint8)
     areaset = list(set(areaset))  # 划分出的所有区域
-    for i in range(len(areaset)):  # 每个区域遍历
-        total_area = 0  # 这个区域的面积
+    for i in range(len(areaset)): 
+        total_area = 0  
         gt_area = 0  # 在前景图中是前景的面积
         # 寻找这个区域中是前景的点
         for y in range(height):
@@ -299,7 +293,7 @@ def cal_IOU(img_gt, res, width, height, areaset):
 
 if __name__ == "__main__":
     '''
-    Task 1: 提取训练集数据：随机抽取200张图
+    提取训练集数据：随机抽取200张图
     '''
     id = 5
     while id <= 1000:
@@ -314,7 +308,7 @@ if __name__ == "__main__":
         id += 5
 
     '''
-    Task 2: 提取测试集数据：抽取19结尾的图片
+    提取测试集数据
     '''
     id = 19
     while id <= 1000:
@@ -329,7 +323,7 @@ if __name__ == "__main__":
         id += 100
 
     '''
-    Task 3: 在训练集执行题目二代码
+    在训练集执行题目二代码
     '''
     index = 5
     # 超参数
@@ -340,7 +334,7 @@ if __name__ == "__main__":
         id = index
         print(f"Processing image {id}.png ...")
         img_number = str(id)
-        # 读取相应编号原图和前景图（修正为dateset/train/imgs和dateset/train/gt目录）
+       
         img = cv2.imread(os.path.join(TRAIN_IMGS_DIR, img_number + "_origin.png"))
         img_gt = cv2.imread(os.path.join(TRAIN_GT_DIR, img_number + "_gt.png"))
         if img is None or img_gt is None:
@@ -371,7 +365,7 @@ if __name__ == "__main__":
         # 读取下一张图片
         index += 5
 
-    # Task 4: 在测试集执行分割算法，生成 mask 和 result
+  
     index = 19
     while index <= 1000:
         id = index
